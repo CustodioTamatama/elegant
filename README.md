@@ -16,3 +16,5 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 git remote add origin http://github.com/cadynho/elegant.git
 git push origin -u master
+git commit -m 'add android'
+cd android
