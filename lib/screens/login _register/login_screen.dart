@@ -158,6 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                 ),
+                SizedBox(height: dp10(context)),
                 PrincipalElevatedButton(
                     onPressed: () =>
                         Navigator.of(context).pushNamed('/RegisterScreen'),

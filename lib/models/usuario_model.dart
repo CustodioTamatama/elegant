@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:uuid/uuid.dart';
 
 import '../enums.dart/e_role.dart';
 import '../firestore/collections.dart';
@@ -23,7 +24,9 @@ class UsuarioModel {
     this.endereco,
     this.role,
     this.senha,
-  });
+  }) {
+    id = const Uuid().v4();
+  }
 
   Future<UsuarioModel?> post() async {
     final success = await FirestoreDb.inserir(Collections.users, id!, toMap());
@@ -49,9 +52,13 @@ class UsuarioModel {
       'email',
     );
 
-    return UsuarioModel.fromMap(
-      snap.docs.first.data(),
-    );
+    if (snap.docs.isNotEmpty) {
+      return UsuarioModel.fromMap(
+        snap.docs.first.data(),
+      );
+    }
+
+    return null;
   }
 
   static ERole obterRolePorValor(int valor) {
