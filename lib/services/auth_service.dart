@@ -52,7 +52,7 @@ class AuthService {
 
         final usuario = UsuarioModel(
           email: result.email,
-          nome: names[0],
+          nome: names.first,
           apelido: names.last,
           role: ERole.cliente,
         );

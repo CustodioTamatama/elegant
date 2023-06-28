@@ -1,10 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../enums.dart/e_role.dart';
 import '../../main.dart';
@@ -116,7 +115,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           _loading = true;
                         });
 
-                        _usuarioModel.id = const Uuid().v4();
                         _usuarioModel.nome = _nomeController.text;
                         _usuarioModel.role = ERole.cliente;
                         _usuarioModel.apelido = _apelidoController.text;
