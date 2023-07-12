@@ -24,6 +24,11 @@ class LoginTextField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       obscureText: obscureText,
       controller: controller,
+      validator: (value) {
+        if (value != null && value.isEmpty) return 'campo obrigatorio';
+        
+        return null;
+      },
       decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: MyColors.primaryColor),

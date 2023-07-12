@@ -12,7 +12,10 @@ class AuthService {
         password: usuario.senha!,
       );
 
-      return await usuario.post();
+      final result = await usuario.post();
+      result?.setUsuarioLogado();
+
+      return result;
     } on FirebaseAuthException {
       rethrow;
     } catch (e) {
@@ -27,7 +30,10 @@ class AuthService {
         password: usuario.senha!,
       );
 
-      return await usuario.get();
+      final result = await usuario.get();
+      result?.setUsuarioLogado();
+
+      return result;
     } on FirebaseAuthException {
       rethrow;
     } catch (e) {
@@ -60,9 +66,14 @@ class AuthService {
         final usuarioDb = await usuario.get();
 
         if (usuarioDb != null) {
+          usuarioDb.setUsuarioLogado();
+
           return usuarioDb;
         } else {
-          return await usuario.post();
+          final result = await usuario.post();
+          result?.setUsuarioLogado();
+
+          return result;
         }
       }
 
@@ -71,6 +82,20 @@ class AuthService {
       rethrow;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
+      final instance = GoogleSignIn(scopes: _scopes);
+      final googleResult = await instance.signOut();
+      await FirebaseAuth.instance.signOut();
+
+      if (googleResult != null) await instance.disconnect();
+
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

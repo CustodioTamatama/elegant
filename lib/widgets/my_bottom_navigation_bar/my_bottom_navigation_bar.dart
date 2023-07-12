@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../models/usuario_model.dart';
 import '../../screens/agendamentos_screen.dart';
 import '../../screens/home/home_screen.dart';
 import '../../screens/user/user_screen.dart';
@@ -37,7 +38,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.white,
           onTap: (index) {
-            if (index == 2) {
+            if (index == 2 && UsuarioModel.usuarioLogado == null) {
               Navigator.of(context).pushReplacementNamed('/LoginScreen');
             } else {
               setState(() {

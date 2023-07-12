@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:elegant/services/local_data_source_service.dart';
 import 'package:uuid/uuid.dart';
 
 import '../enums.dart/e_role.dart';
@@ -26,6 +27,21 @@ class UsuarioModel {
     this.senha,
   }) {
     id = const Uuid().v4();
+    getUsuarioLogado().then((value) => usuarioLogado = value);
+  }
+
+  static UsuarioModel? usuarioLogado;
+
+  void setUsuarioLogado() {
+    LocalDataSourceService().setString('usuario_logado', toJson());
+  }
+
+  Future<UsuarioModel?> getUsuarioLogado() async {
+    final result = await LocalDataSourceService().getString('usuario_logado');
+
+    if (result != null) return UsuarioModel.fromJson(result);
+
+    return null;
   }
 
   Future<UsuarioModel?> post() async {
@@ -97,6 +113,6 @@ class UsuarioModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UsuarioModel.fromJson(String source) =>
-      UsuarioModel.fromMap(json.decode(source));
+  factory UsuarioModel.fromJson(String source) => UsuarioModel.fromMap(
+      json.decode(source));
 }
